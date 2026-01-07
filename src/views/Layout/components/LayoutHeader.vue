@@ -1,4 +1,22 @@
 <script setup>
+import { getNavCategory } from '@/api/layout'
+
+import { ref, onMounted } from 'vue'
+
+// 接收结果
+const CateList = ref([])
+
+const getCateList = async () => {
+  const res = await getNavCategory()
+
+  CateList.value = res.result
+
+  console.log(CateList.value);
+}
+
+onMounted(() => {
+  getCateList()
+})
 
 </script>
 
@@ -9,17 +27,8 @@
         <RouterLink to="/">小兔鲜</RouterLink>
       </h1>
       <ul class="app-header-nav">
-        <li class="home">
-          <RouterLink to="/">首页</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">居家</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">美食</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">服饰</RouterLink>
+        <li class="home" v-for="item in CateList" :key="item.id">
+          <RouterLink to="/">{{ item.name }}</RouterLink>
         </li>
       </ul>
       <div class="search">
