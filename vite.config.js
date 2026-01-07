@@ -27,6 +27,7 @@ export default defineConfig({
       useSource: true,
     }),
   ],
+  // 别名联想设置
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
@@ -40,4 +41,5 @@ export default defineConfig({
       },
     },
   },
+});
 });
