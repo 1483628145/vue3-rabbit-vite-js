@@ -15,7 +15,6 @@ const getList = async () => {
   const res = await getHotList()
 
   hotList.value = res.result
-  console.log(res);
 }
 
 onMounted(() => {
@@ -24,14 +23,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <HomePanel title="热门推荐">
+  <HomePanel title="热门推荐" sub-title="人气爆款 不容错过">
     <!-- 插槽展示数据 -->
     <div>
       <!-- 下面是插槽主体内容模版 -->
       <ul class="goods-list">
         <li v-for="item in hotList" :key="item.id">
           <RouterLink to="/">
-            <img :src="item.picture" alt="" />
+            <img v-img-lazy="item.picture" alt="" />
             <p class="name">{{ item.title }}</p>
             <p class="price">{{ item.alt }}</p>
           </RouterLink>
