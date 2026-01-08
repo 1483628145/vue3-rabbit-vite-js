@@ -1,10 +1,8 @@
 <script setup>
 import { useCategoryStore } from '@/stores/category';
 
-
 const CateGoryStore = useCategoryStore()
 
-console.log(CateGoryStore.CateList);
 </script>
 
 <template>

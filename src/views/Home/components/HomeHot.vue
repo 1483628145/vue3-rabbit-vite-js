@@ -1,8 +1,86 @@
 <script setup>
+import HomePanel from './HomePanel.vue';
+
+import { getHotList } from '@/api/home'
+
+import { ref } from 'vue'
+
+import { onMounted } from 'vue'
+
+// 获取好物列表
+const hotList = ref([])
+
+const getList = async () => {
+
+  const res = await getHotList()
+
+  hotList.value = res.result
+  console.log(res);
+}
+
+onMounted(() => {
+  getList()
+})
 </script>
 
 <template>
-  <div>首页推荐区</div>
+  <HomePanel title="热门推荐">
+    <!-- 插槽展示数据 -->
+    <div>
+      <!-- 下面是插槽主体内容模版 -->
+      <ul class="goods-list">
+        <li v-for="item in hotList" :key="item.id">
+          <RouterLink to="/">
+            <img :src="item.picture" alt="" />
+            <p class="name">{{ item.title }}</p>
+            <p class="price">{{ item.alt }}</p>
+          </RouterLink>
+        </li>
+      </ul>
+
+    </div>
+
+  </HomePanel>
+
+
 </template>
 
-<style scoped></style>
+
+<style scoped lang='scss'>
+.goods-list {
+  display: flex;
+  justify-content: space-between;
+  height: 406px;
+
+  li {
+    width: 306px;
+    height: 406px;
+
+    background: #f0f9f4;
+    transition: all .5s;
+
+    &:hover {
+      transform: translate3d(0, -3px, 0);
+      box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
+    }
+
+    img {
+      width: 306px;
+      height: 306px;
+    }
+
+    p {
+      font-size: 22px;
+      padding-top: 12px;
+      text-align: center;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .price {
+      color: #999;
+    }
+  }
+}
+</style>
