@@ -7,6 +7,8 @@ import { ref } from 'vue'
 
 import { onMounted } from 'vue'
 
+import GoodItems from './GoodItems.vue'
+
 // 获取好物列表
 const goodsProduct = ref([])
 
@@ -38,12 +40,7 @@ onMounted(() => {
         </RouterLink>
         <ul class="goods-list">
           <li v-for="good in cate.goods" :key="good.id">
-            <RouterLink to="/" class="goods-item">
-              <img v-img-lazy="good.picture" alt="" />
-              <p class="name ellipsis">{{ good.name }}</p>
-              <p class="desc ellipsis">{{ good.desc }}</p>
-              <p class="price">&yen;{{ good.price }}</p>
-            </RouterLink>
+            <GoodItems :good="good"></GoodItems>
           </li>
         </ul>
       </div>
