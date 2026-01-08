@@ -14,9 +14,16 @@ export function getNewList() {
   });
 }
 
-// 获取新鲜好物数据
+// 获取热门推荐数据
 export function getHotList() {
   return http({
     url: "/home/hot",
+  });
+}
+
+// 获取热门品牌数据
+export function getProductList() {
+  return http({
+    url: "/home/goods",
   });
 }
