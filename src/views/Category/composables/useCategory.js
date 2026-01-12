@@ -1,11 +1,7 @@
 import { getTopCategory } from "@/api/category";
-
 import { useRoute } from "vue-router";
-
 import { onMounted } from "vue";
-
 import { ref } from "vue";
-
 import { onBeforeRouteUpdate } from "vue-router";
 
 export function useCategory() {
@@ -14,12 +10,9 @@ export function useCategory() {
 */
   // 使用useroute拿router信息
   const route = useRoute();
-
   const categoryData = ref({});
-
   const getTopList = async (id = route.params.id) => {
     const res = await getTopCategory(id);
-
     categoryData.value = res.result;
   };
 
