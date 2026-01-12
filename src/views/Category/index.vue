@@ -1,60 +1,13 @@
 <script setup>
-import { getTopCategory } from '@/api/category'
-import { getHomeBanner } from '@/api/home'
-
-import { useRoute } from 'vue-router';
-
-import { onMounted } from 'vue'
-
-import { ref, watch } from 'vue'
-
-
 import GoodItems from '../Home/components/GoodItems.vue';
 
-/*
-获取面包屑数据
-*/
-// 使用useroute拿router信息
-const route = useRoute()
 
-const categoryData = ref({})
+import { useCategory } from '@/views/Category/composables/useCategory'
+import { useBanner } from '@/views/Category/composables/useBanner'
 
-const getTopList = async () => {
-  const res = await getTopCategory(route.params.id)
+const { categoryData } = useCategory()
 
-  categoryData.value = res.result
-
-  console.log(categoryData.value);
-}
-
-onMounted(() => {
-  getTopList()
-})
-
-// 监听路由参数变化：第一次进来也会执行，之后点击切换 id 也会执行
-watch(
-  () => route.params.id,
-  (id) => {
-    if (!id) return
-    getTopList(id)
-  },
-  { immediate: true }
-)
-
-/*
-获取轮播图数据
-*/
-const bannerList = ref([])
-
-const getBannerList = async () => {
-  const res = await getHomeBanner('2')
-  bannerList.value = res.result
-}
-
-onMounted(() => {
-  getBannerList()
-})
-
+const { bannerList } = useBanner()
 
 </script>
 

@@ -18,7 +18,6 @@ const getList = async () => {
 
   goodsProduct.value = res.result
 
-  console.log(res);
 }
 
 onMounted(() => {
