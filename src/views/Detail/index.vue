@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import { getGoodsTetail } from '@/api/goods'
 import { useRoute } from 'vue-router'
+
+import DetailHot from './components/DetailHot.vue'
 /*
 获取商品详情
 */
@@ -15,10 +17,16 @@ const getTetail = async () => {
 
   goodDetail.value = res.result
 
-  console.log(goodDetail.value);
 }
 
 getTetail()
+
+/*
+日榜周榜
+*/
+const type = 2
+
+const title = '周热榜'
 
 </script>
 
@@ -124,7 +132,8 @@ getTetail()
             </div>
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
-
+              <DetailHot></DetailHot>
+              <DetailHot :type="type" :title="title"></DetailHot>
             </div>
           </div>
         </div>
