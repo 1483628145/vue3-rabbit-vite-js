@@ -22,8 +22,14 @@ const router = createRouter({
         // 二级分类
         {
           path: "category/sub/:id",
-          // name: "sub",
+          name: "sub",
           component: () => import("@/views/SubCategory/index.vue"),
+        },
+        // 商品详情区
+        {
+          path: "detail/:id",
+          name: "detail",
+          component: () => import("@/views/Detail/index.vue"),
         },
       ],
     },
