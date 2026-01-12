@@ -35,9 +35,12 @@ const reqData = ref({
   sortField: 'publishTime'
 })
 
+// 获取商品列表
 const getCategoryGoods = async () => {
   const res = await getSubCategory(reqData.value)
-  goods.value = res.result
+
+  // 将结果的items值给goods数组
+  goods.value = res.result.items
 }
 
 onMounted(() => {
@@ -50,7 +53,30 @@ onMounted(() => {
 // 当tab切换的时候触发这个函数
 const tabChange = () => {
   reqData.value.page = 1
-  getCategoryGoods()
+  getCategoryGoods(reqData.value)
+}
+
+
+/*
+滚动条到底部的时候自动加载
+*/
+const disabled = ref(false)
+const handleScroll = async () => {
+  // console.log('load');
+
+  // 页数加1 然后请求接口拿到新的数据
+  reqData.value.page++
+
+  // console.log(reqData.value);
+
+  const res = await getSubCategory(reqData.value)
+
+  goods.value = [...goods.value, ...res.result.items]
+
+  // 加载完毕 停止监听
+  if (res.result.items.length === 0) {
+    disabled.value = true
+  }
 }
 
 
@@ -74,10 +100,12 @@ const tabChange = () => {
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
-      <div class="body">
+
+      <div class="body" v-infinite-scroll="handleScroll">
         <!-- 商品列表-->
-        <GoodItems v-for="item in goods.items" :key="item.id" :good="item"></GoodItems>
+        <GoodItems v-for="item in goods" :key="item.id" :good="item" />
       </div>
+
     </div>
   </div>
 
