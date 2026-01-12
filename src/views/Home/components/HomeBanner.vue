@@ -9,7 +9,7 @@ import { onMounted } from 'vue'
 const bannerList = ref([])
 
 const getBannerList = async () => {
-  const res = await getHomeBanner()
+  const res = await getHomeBanner('1')
   bannerList.value = res.result
 }
 

@@ -1,9 +1,12 @@
 import http from "@/utils/request";
 
 // 获取轮播图数据
-export function getHomeBanner() {
+export function getHomeBanner(distributionSite) {
   return http({
     url: "/home/banner",
+    params: {
+      distributionSite,
+    },
   });
 }
 
