@@ -13,7 +13,7 @@ const CateGoryStore = useCategoryStore()
       </h1>
       <ul class="app-header-nav">
         <li class="home" v-for="item in CateGoryStore.CateList" :key="item.id">
-          <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
+          <RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         </li>
       </ul>
       <div class="search">
@@ -55,6 +55,7 @@ const CateGoryStore = useCategoryStore()
     position: relative;
     z-index: 998;
 
+
     li {
       margin-right: 40px;
       width: 38px;
@@ -72,6 +73,7 @@ const CateGoryStore = useCategoryStore()
         }
       }
 
+      // 路由点击后的效果
       .active {
         color: $xtxColor;
         border-bottom: 1px solid $xtxColor;

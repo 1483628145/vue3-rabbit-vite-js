@@ -8,6 +8,12 @@ import { onMounted } from 'vue'
 
 import { ref, watch } from 'vue'
 
+
+import GoodItems from '../Home/components/GoodItems.vue';
+
+/*
+获取面包屑数据
+*/
 // 使用useroute拿router信息
 const route = useRoute()
 
@@ -17,6 +23,8 @@ const getTopList = async () => {
   const res = await getTopCategory(route.params.id)
 
   categoryData.value = res.result
+
+  console.log(categoryData.value);
 }
 
 onMounted(() => {
@@ -33,19 +41,21 @@ watch(
   { immediate: true }
 )
 
-// 获取banner列表
+/*
+获取轮播图数据
+*/
 const bannerList = ref([])
 
 const getBannerList = async () => {
   const res = await getHomeBanner('2')
   bannerList.value = res.result
-
-  console.log(bannerList.value);
 }
 
 onMounted(() => {
   getBannerList()
 })
+
+
 </script>
 
 <template>
@@ -66,6 +76,27 @@ onMounted(() => {
             <img alt="" :src="item.imgUrl">
           </el-carousel-item>
         </el-carousel>
+      </div>
+
+      <!-- 分类数据 -->
+      <div class="sub-list">
+        <h3>全部分类</h3>
+        <ul>
+          <li v-for="i in categoryData.children" :key="i.id">
+            <RouterLink to="/">
+              <img :src="i.picture" />
+              <p>{{ i.name }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+      </div>
+      <div class="ref-goods" v-for="item in categoryData.children" :key="item.id">
+        <div class="head">
+          <h3>- {{ item.name }}-</h3>
+        </div>
+        <div class="body">
+          <GoodItems v-for="good in item.goods" :good="good" :key="good.id" />
+        </div>
       </div>
     </div>
   </div>
