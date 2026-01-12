@@ -33,6 +33,15 @@ const router = createRouter({
       component: () => import("@/views/Login/index.vue"),
     },
   ],
+  // 路由行为配置
+  /*
+  可以实现当跳转回其他路由的时候自动将滚动条到顶部
+  */
+  scrollBehavior() {
+    return {
+      top: 0,
+    };
+  },
 });
 
 export default router;
