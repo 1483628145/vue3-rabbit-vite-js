@@ -19,16 +19,14 @@ const goodsHot = ref([])
 
 const route = useRoute()
 
+// 获取周榜日榜榜单
 const getGoodsHotList = async () => {
   const res = await getGoodsHot({
     id: route.params.id,
     type: props.type,
     limit: 3
   })
-
   goodsHot.value = res.result
-
-  console.log(goodsHot.value);
 }
 
 getGoodsHotList()
