@@ -16,6 +16,8 @@ const getTetail = async () => {
   const res = await getGoodsTetail(route.params.id)
 
   goodDetail.value = res.result
+
+  // console.log(goodDetail.value);
 }
 
 getTetail()
@@ -26,6 +28,14 @@ getTetail()
 const type = 2
 
 const title = '周热榜'
+
+/*
+sku管理
+*/
+
+const skuChange = (sku) => {
+  console.log(sku);
+}
 
 
 </script>
@@ -98,7 +108,7 @@ const title = '周热榜'
                 </dl>
               </div>
               <!-- sku组件 -->
-
+              <XtxSku :goods="goodDetail" @change="skuChange"></XtxSku>
               <!-- 数据组件 -->
 
               <!-- 按钮组件 -->
